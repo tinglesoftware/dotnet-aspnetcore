@@ -6,33 +6,33 @@ need to ensure that this is not the case before committing the changes to the pe
 A sample usage of this functionality is shown below:
 
 ```cs
-public class TestClass 
+public class TestClass
 {
-	[Key]
-	public string Id { get; set; }
+    [Key]
+    public string Id { get; set; }
 
-	[Range(18, 65)]
+    [Range(18, 65)]
     public int Age { get; set; }
 }
 ```
 
 ```cs
-public class TestController : ControllerBase 
+public class TestController : ControllerBase
 {
-	[HttpPost("{id}")]
-	public async Task<IActionResult> UpdateAsync([FromRoute, Required] string id, [FromBody] JsonPatchDocument<TestClass> model)
-	{
-		// Fetch the object that needs to be patched from your persistence layer eg database
-		var test = await GetObjectFromDbAsync(id);
+    [HttpPost("{id}")]
+    public async Task<IActionResult> UpdateAsync([FromRoute, Required] string id, [FromBody] JsonPatchDocument<TestClass> model)
+    {
+        // Fetch the object that needs to be patched from your persistence layer eg database
+        var test = await GetObjectFromDbAsync(id);
 
-		// update the template
+        // update the template
         model.ApplyToSafely(template, ModelState, new List<string> { "Id" });
         if (!ModelState.IsValid) return ValidationProblem();
 
         // validate the resulting model
         if (!TryValidateModel(test)) return ValidationProblem();
 
-		...
-	}
+        // other code omitted for brevity
+    }
 }
 ```
