@@ -3,7 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tingle.AspNetCore.JsonPatch.NewtonsoftJson", "Tingle.AspNetCore.JsonPatch.NewtonsoftJson\Tingle.AspNetCore.JsonPatch.NewtonsoftJson.csproj", "{82B17C91-B96A-4290-A623-6867912A4C8E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{98741A83-6F24-4DC8-AE3E-20BC3FE84F42}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tingle.AspNetCore.JsonPatch.NewtonsoftJson", "src\Tingle.AspNetCore.JsonPatch.NewtonsoftJson\Tingle.AspNetCore.JsonPatch.NewtonsoftJson.csproj", "{82B17C91-B96A-4290-A623-6867912A4C8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8B59362A-867F-4D1D-ADE3-26534899753E}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Build.props = tests\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{F6E70E14-7838-4E57-A32C-70E108CE2F2A}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Directory.Build.props = samples\Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +33,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{82B17C91-B96A-4290-A623-6867912A4C8E} = {98741A83-6F24-4DC8-AE3E-20BC3FE84F42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2146C3AD-FA5F-4772-80C0-4B470424F7FE}
