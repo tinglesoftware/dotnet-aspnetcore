@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8B59362A
 		tests\Directory.Build.props = tests\Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tingle.AspNetCore.JsonPatch.NewtonsoftJson.Tests", "tests\Tingle.AspNetCore.JsonPatch.NewtonsoftJson.Tests\Tingle.AspNetCore.JsonPatch.NewtonsoftJson.Tests.csproj", "{55B3650C-36C6-4C05-B6A2-B4CBC3DC3E4C}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{F6E70E14-7838-4E57-A32C-70E108CE2F2A}"
 	ProjectSection(SolutionItems) = preProject
 		samples\Directory.Build.props = samples\Directory.Build.props
@@ -30,12 +32,17 @@ Global
 		{82B17C91-B96A-4290-A623-6867912A4C8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82B17C91-B96A-4290-A623-6867912A4C8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82B17C91-B96A-4290-A623-6867912A4C8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55B3650C-36C6-4C05-B6A2-B4CBC3DC3E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55B3650C-36C6-4C05-B6A2-B4CBC3DC3E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55B3650C-36C6-4C05-B6A2-B4CBC3DC3E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55B3650C-36C6-4C05-B6A2-B4CBC3DC3E4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{82B17C91-B96A-4290-A623-6867912A4C8E} = {98741A83-6F24-4DC8-AE3E-20BC3FE84F42}
+		{55B3650C-36C6-4C05-B6A2-B4CBC3DC3E4C} = {8B59362A-867F-4D1D-ADE3-26534899753E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2146C3AD-FA5F-4772-80C0-4B470424F7FE}
