@@ -1,12 +1,12 @@
-## Tingle.AspNetCore.DataProtection.MongoDB
+# Tingle.AspNetCore.DataProtection.MongoDB
 
-Web applications often need to store security-sensitive data. Windows provides DPAPI for desktop applications but this is unsuitable for web applications. The ASP.NET Core data protection stack provide a simple, easy to use cryptographic API a developer can use to protect data, including key management and rotation.
+Web applications often need to store security-sensitive data. Windows provides DPAPI for desktop applications but this is unsuitable for web applications especially when running in a Docker container. The ASP.NET Core data protection stack provide a simple, easy to use cryptographic API a developer can use to protect data, including key management and rotation.
 
-Microsoft has already provided ways to persist data protection keys to [various storage systems.](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview?view=aspnetcore-5.0). 
+Microsoft has already provided ways to persist data protection keys to [various storage systems.](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview?view=aspnetcore-5.0).
 
 This package provides the functionality to persist the data protection keys to MongoDB.
 
-### Using Dependency Injection
+## Using Dependency Injection
 
 ```cs
 public void ConfigureServices(IServicesCollection services)
@@ -43,7 +43,3 @@ public class DummyController : ControllerBase
 ```
 
 The `PersistKeysToMongo` can be configured to store keys in databases and collections of your choice. By default, data protection keys will be stored in a database and collection named `DataProtection` and `DataProtection-Keys` respectively.
-
-
-
-
