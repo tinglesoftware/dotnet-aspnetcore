@@ -35,7 +35,7 @@ namespace Tingle.AspNetCore.Authorization
         {
             var httpContext = httpContextAccessor.HttpContext;
             var address = httpContext.Connection.RemoteIpAddress;
-            logger.LogTrace("Checking approval for IP: '{0}', IPv4MappedToIPv6: {1}", address, address?.IsIPv4MappedToIPv6);
+            logger.LogTrace("Checking approval for IP: '{0}'", address);
             if (address != null && requirement.IsApproved(address))
             {
                 context.Succeed(requirement);
