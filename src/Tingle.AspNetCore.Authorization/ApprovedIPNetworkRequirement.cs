@@ -27,6 +27,16 @@ namespace Tingle.AspNetCore.Authorization
         /// </summary>
         /// <param name="address">The address to check.</param>
         /// <returns></returns>
-        public bool IsApproved(IPAddress address) => networks.Contains(address);
+        public bool IsApproved(IPAddress address)
+        {
+            // if the IP is an IPv4 mapped to IPv6, remap it
+            var addr = address;
+            if (addr.IsIPv4MappedToIPv6)
+            {
+                addr = addr.MapToIPv4();
+            }
+
+            return networks.Contains(addr);
+        }
     }
 }
