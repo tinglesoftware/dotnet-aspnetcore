@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Tingle.AspNetCore.Tokens.Misc;
+using Tingle.AspNetCore.Tokens;
 
 namespace Microsoft.AspNetCore.Mvc
 {

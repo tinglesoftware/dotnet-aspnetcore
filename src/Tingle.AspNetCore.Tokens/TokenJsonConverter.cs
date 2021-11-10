@@ -3,7 +3,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Tingle.AspNetCore.Tokens.Misc
+namespace Tingle.AspNetCore.Tokens
 {
     /// <summary>
     /// A <see cref="JsonConverter{T}"/> for types implementing <see cref="IToken"/> (special purpose tokens) such as:
