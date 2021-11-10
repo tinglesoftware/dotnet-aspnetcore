@@ -14,7 +14,7 @@ namespace Tingle.AspNetCore.Tokens.Tests
         [Fact]
         public void GetBinder_Returns_Null()
         {
-            var provider = new TokensModelBinderProvider();
+            var provider = new ContinuationTokenModelBinderProvider();
 
             // it must be generic
             var context = GetBinderProviderContext<string>();
@@ -41,7 +41,7 @@ namespace Tingle.AspNetCore.Tokens.Tests
         public void GetBinder_Returns_NonNull()
         {
             // test for ContinuationToken<string>
-            var provider = new TokensModelBinderProvider();
+            var provider = new ContinuationTokenModelBinderProvider();
             var context = GetBinderProviderContext<ContinuationToken<string>>();
             var binder = provider.GetBinder(context);
             _ = Assert.IsAssignableFrom<BinderTypeModelBinder>(binder);

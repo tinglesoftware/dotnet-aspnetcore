@@ -33,7 +33,7 @@ namespace Tingle.AspNetCore.Tokens.Tests
             serviceProvider = services.BuildServiceProvider(true).CreateScope().ServiceProvider;
 
             // create the model binder provider
-            binderProvider = new TokensModelBinderProvider();
+            binderProvider = new ContinuationTokenModelBinderProvider();
 
             // prepare the model binder provider context
             var modelMetadata = new EmptyModelMetadataProvider().GetMetadataForType(typeof(ContinuationToken<TestDataClass>));
