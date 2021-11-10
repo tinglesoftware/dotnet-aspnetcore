@@ -9,7 +9,7 @@ namespace Microsoft.AspNetCore.Mvc
     /// Represents a timed continuation token's data.
     /// </summary>
     /// <typeparam name="T">The type of data contained</typeparam>
-    [JsonConverter(typeof(TokenJsonConverter))]
+    [JsonConverter(typeof(ContinuationTokenJsonConverter))]
     public class TimedContinuationToken<T> : ContinuationToken<T>, IEquatable<TimedContinuationToken<T>>
     {
         private readonly DateTimeOffset expiration;

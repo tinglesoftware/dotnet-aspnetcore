@@ -9,7 +9,7 @@ namespace Microsoft.AspNetCore.Mvc
     /// Represents a continuation token's data
     /// </summary>
     /// <typeparam name="T">The type of data contained</typeparam>
-    [JsonConverter(typeof(TokenJsonConverter))]
+    [JsonConverter(typeof(ContinuationTokenJsonConverter))]
     public class ContinuationToken<T> : IToken, IEquatable<ContinuationToken<T>>
     {
         private readonly T value;
