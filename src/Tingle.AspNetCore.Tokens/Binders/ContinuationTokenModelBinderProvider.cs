@@ -14,7 +14,7 @@ namespace Tingle.AspNetCore.Tokens.Binders
     /// </list>
     /// if applicable.
     /// </summary>
-    internal class TokensModelBinderProvider : IModelBinderProvider
+    internal class ContinuationTokenModelBinderProvider : IModelBinderProvider
     {
         /// <inheritdoc/>
         public IModelBinder GetBinder(ModelBinderProviderContext context)

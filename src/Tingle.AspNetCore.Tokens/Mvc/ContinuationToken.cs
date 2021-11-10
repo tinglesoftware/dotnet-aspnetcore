@@ -1,8 +1,7 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Tingle.AspNetCore.Tokens.Misc;
+using Tingle.AspNetCore.Tokens;
 
 namespace Microsoft.AspNetCore.Mvc
 {
@@ -10,8 +9,7 @@ namespace Microsoft.AspNetCore.Mvc
     /// Represents a continuation token's data
     /// </summary>
     /// <typeparam name="T">The type of data contained</typeparam>
-    [SwaggerSchemaFilter(typeof(TokenSchemaFilter))]
-    [JsonConverter(typeof(TokenJsonConverter))]
+    [JsonConverter(typeof(ContinuationTokenJsonConverter))]
     public class ContinuationToken<T> : IToken, IEquatable<ContinuationToken<T>>
     {
         private readonly T value;

@@ -40,9 +40,9 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder.AddMvcOptions(options =>
             {
                 // Skip the binder registration if it was already added to the providers collection.
-                if (!options.ModelBinderProviders.OfType<TokensModelBinderProvider>().Any())
+                if (!options.ModelBinderProviders.OfType<ContinuationTokenModelBinderProvider>().Any())
                 {
-                    options.ModelBinderProviders.Insert(0, new TokensModelBinderProvider());
+                    options.ModelBinderProviders.Insert(0, new ContinuationTokenModelBinderProvider());
                 }
             });
         }
