@@ -1,5 +1,4 @@
-﻿using System;
-using Tingle.AspNetCore.Tokens.Protection;
+﻿using Tingle.AspNetCore.Tokens.Protection;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

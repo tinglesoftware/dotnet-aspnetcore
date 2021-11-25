@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using System;
 using Tingle.AspNetCore.DataProtection.MongoDB;
 
 namespace Microsoft.AspNetCore.DataProtection;

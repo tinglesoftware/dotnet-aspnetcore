@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using Tingle.AspNetCore.Tokens;
 using Tingle.AspNetCore.Tokens.Protection;
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Tingle.AspNetCore.Tokens.Tests;
+﻿namespace Tingle.AspNetCore.Tokens.Tests;
 
 class TestDataClass
 {

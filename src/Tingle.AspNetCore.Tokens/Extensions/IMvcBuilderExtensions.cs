@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 using Tingle.AspNetCore.Tokens.Binders;
 using Tingle.AspNetCore.Tokens.Protection;
 

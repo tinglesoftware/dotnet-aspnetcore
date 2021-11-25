@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
-using System;
 using Tingle.AspNetCore.Tokens;
 
 namespace Microsoft.AspNetCore.Mvc;

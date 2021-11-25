@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Moq;
-using System;
-using System.Collections.Generic;
 using Tingle.AspNetCore.Tokens.Binders;
 using Xunit;
 

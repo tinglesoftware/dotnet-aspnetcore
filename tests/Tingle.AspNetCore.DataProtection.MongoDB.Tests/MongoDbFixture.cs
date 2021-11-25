@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using System;
 using System.Text.RegularExpressions;
 
 namespace Tingle.AspNetCore.DataProtection.MongoDB.Tests;
