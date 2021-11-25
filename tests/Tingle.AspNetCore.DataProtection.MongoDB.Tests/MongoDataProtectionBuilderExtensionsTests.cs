@@ -5,25 +5,24 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Xunit;
 
-namespace Tingle.AspNetCore.DataProtection.MongoDB.Tests
+namespace Tingle.AspNetCore.DataProtection.MongoDB.Tests;
+
+public class MongoDataProtectionBuilderExtensionsTests
 {
-    public class MongoDataProtectionBuilderExtensionsTests
+    [Fact]
+    public void PersistKeysToMongo_UsesMongoXmlRepository()
     {
-        [Fact]
-        public void PersistKeysToMongo_UsesMongoXmlRepository()
-        {
-            // Arrange
-            var serviceCollection = new ServiceCollection();
-            serviceCollection.AddSingleton<IMongoClient>(p => new MongoClient("mongodb://localhost:27017/services-management"));
-            var builder = serviceCollection.AddDataProtection();
+        // Arrange
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddSingleton<IMongoClient>(p => new MongoClient("mongodb://localhost:27017/services-management"));
+        var builder = serviceCollection.AddDataProtection();
 
-            // Act
-            builder.PersistKeysToMongo();
-            var services = serviceCollection.BuildServiceProvider();
+        // Act
+        builder.PersistKeysToMongo();
+        var services = serviceCollection.BuildServiceProvider();
 
-            // Assert
-            var options = services.GetRequiredService<IOptions<KeyManagementOptions>>();
-            Assert.IsType<MongoXmlRepository>(options.Value.XmlRepository);
-        }
+        // Assert
+        var options = services.GetRequiredService<IOptions<KeyManagementOptions>>();
+        Assert.IsType<MongoXmlRepository>(options.Value.XmlRepository);
     }
 }
