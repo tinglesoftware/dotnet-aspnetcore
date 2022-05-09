@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.JsonPatch.Operations;
 using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace Microsoft.AspNetCore.JsonPatch;
