@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
 
@@ -79,6 +80,32 @@ public class ValidationTest
     }
 
     [Fact]
+    public void Validation_Passes_CompoundPropertyName()
+    {
+        // ideally retrieved from the database
+        var target = new TestModel
+        {
+            Id = "test1",
+            Name = "John",
+            Age = 20,
+            Inner = new TestInnerModel
+            {
+                Batch = "001"
+            },
+        };
+
+        // test with compound property names
+        var json = "[{\"op\":\"replace\",\"path\":\"/middle_name\",\"value\":\"Kamau\"}]";
+        var doc = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonPatchDocument<TestPatchModel>>(json)!;
+        doc.ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy(), };
+        var modelState = new ModelStateDictionary();
+        doc.ApplyToSafely(target, modelState);
+        Assert.True(modelState.IsValid);
+        Assert.Empty(modelState);
+        Assert.Equal("Kamau", target.MiddleName);
+    }
+
+    [Fact]
     public void Validation_Passes_Inner()
     {
         // ideally retrieved from the database
@@ -142,6 +169,8 @@ public class ValidationTest
     class TestPatchModel
     {
         public string Name { get; set; }
+
+        public string MiddleName { get; set; }
 
         public TestInnerModel Inner { get; set; }
 

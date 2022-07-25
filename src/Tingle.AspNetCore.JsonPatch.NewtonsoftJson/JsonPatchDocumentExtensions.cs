@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json.Serialization;
 using System.Reflection;
 
 namespace Microsoft.AspNetCore.Mvc;
@@ -119,7 +120,12 @@ public static class JsonPatchDocumentExtensions
         if (modelState == null) throw new ArgumentNullException(nameof(modelState));
 
         var attrs = BindingFlags.Public | BindingFlags.FlattenHierarchy | BindingFlags.Instance;
-        var properties = typeof(T).GetProperties(attrs).Select(p => p.Name).ToList();
+        var properties = typeof(T).GetProperties(attrs).Select(p =>
+        {
+            var attr = p.GetCustomAttribute<Newtonsoft.Json.JsonPropertyAttribute>();
+            var dcc = patchDoc.ContractResolver as DefaultContractResolver;
+            return attr?.PropertyName ?? dcc?.GetResolvedPropertyName(p.Name) ?? p.Name;
+        }).ToList();
 
         // check each operation
         foreach (var op in patchDoc.Operations)
