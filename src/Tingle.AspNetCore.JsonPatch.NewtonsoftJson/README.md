@@ -22,7 +22,7 @@ public class TestController : ControllerBase
     [HttpPost("{id}")]
     public async Task<IActionResult> UpdateAsync([FromRoute, Required] string id, [FromBody] JsonPatchDocument<TestClass> model)
     {
-        // Fetch the object that needs to be patched from your persistence layer eg database
+        // Fetch the object that needs to be patched from your persistence layer e.g. database
         var test = await GetObjectFromDbAsync(id);
 
         // update the template

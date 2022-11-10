@@ -45,7 +45,7 @@ public class ContinuationTokenModelBinderTests
     [Fact]
     public async Task BindModelAsync_Succeeds_NoValue()
     {
-        // prepare http context
+        // prepare HTTP context
         var httpContext = new DefaultHttpContext() { RequestServices = serviceProvider };
 
         // prepare binding context
@@ -60,7 +60,7 @@ public class ContinuationTokenModelBinderTests
     [Fact]
     public async Task BindModelAsync_Succeeds_WrongName()
     {
-        // prepare http context
+        // prepare HTTP context
         var httpContext = new DefaultHttpContext() { RequestServices = serviceProvider };
         httpContext.Request.Query = new QueryCollection(new Dictionary<string, StringValues> { ["ct"] = "baba" });
 
@@ -76,7 +76,7 @@ public class ContinuationTokenModelBinderTests
     [Fact]
     public async Task BindModelAsync_Succeeds_EmptyValue()
     {
-        // prepare http context
+        // prepare HTTP context
         var httpContext = new DefaultHttpContext() { RequestServices = serviceProvider };
         httpContext.Request.Query = new QueryCollection(new Dictionary<string, StringValues> { [QueryKey] = "" });
 
@@ -92,7 +92,7 @@ public class ContinuationTokenModelBinderTests
     [Fact]
     public async Task BindModelAsync_InvalidToken_Causes_ValidationFailure()
     {
-        // prepare http context
+        // prepare HTTP context
         var httpContext = new DefaultHttpContext() { RequestServices = serviceProvider };
         httpContext.Request.Query = new QueryCollection(new Dictionary<string, StringValues> { [QueryKey] = "baba" });
 
@@ -126,7 +126,7 @@ public class ContinuationTokenModelBinderTests
         var ctProtector = serviceProvider.GetService<ITokenProtector<TestDataClass>>();
         var token = ctProtector.Protect(original);
 
-        // prepare http context
+        // prepare HTTP context
         var httpContext = new DefaultHttpContext() { RequestServices = serviceProvider };
         httpContext.Request.Query = new QueryCollection(new Dictionary<string, StringValues> { [QueryKey] = token });
 
@@ -151,7 +151,7 @@ public class ContinuationTokenModelBinderTests
         var expiration = DateTimeOffset.UtcNow.AddSeconds(1);
         var token = ctProtector.Protect(original, expiration);
 
-        // prepare http context
+        // prepare HTTP context
         var httpContext = new DefaultHttpContext() { RequestServices = serviceProvider };
         httpContext.Request.Query = new QueryCollection(new Dictionary<string, StringValues> { [QueryKey] = token });
 
@@ -179,7 +179,7 @@ public class ContinuationTokenModelBinderTests
         // delay the usage
         await Task.Delay(TimeSpan.FromSeconds(2));
 
-        // prepare http context
+        // prepare HTTP context
         var httpContext = new DefaultHttpContext() { RequestServices = serviceProvider };
         httpContext.Request.Query = new QueryCollection(new Dictionary<string, StringValues> { [QueryKey] = token });
 
@@ -205,7 +205,7 @@ public class ContinuationTokenModelBinderTests
         // delay the usage
         await Task.Delay(TimeSpan.FromSeconds(2));
 
-        // prepare http context
+        // prepare HTTP context
         var httpContext = new DefaultHttpContext() { RequestServices = serviceProvider };
         httpContext.Request.Query = new QueryCollection(new Dictionary<string, StringValues> { [QueryKey] = token });
 
@@ -232,7 +232,7 @@ public class ContinuationTokenModelBinderTests
         // delay the usage
         await Task.Delay(TimeSpan.FromSeconds(2));
 
-        // prepare http context
+        // prepare HTTP context
         var httpContext = new DefaultHttpContext() { RequestServices = serviceProvider };
         httpContext.Request.Query = new QueryCollection(new Dictionary<string, StringValues> { [QueryKey] = token });
 

@@ -15,7 +15,7 @@ public class ApprovedIPNetworkHandler : AuthorizationHandler<ApprovedIPNetworkRe
     /// <summary>
     /// Creates an instance of <see cref="ApprovedIPNetworkHandler"/>
     /// </summary>
-    /// <param name="httpContextAccessor">the accessor that provides the current http context</param>
+    /// <param name="httpContextAccessor">the accessor that provides the current HTTP context</param>
     /// <param name="logger"></param>
     public ApprovedIPNetworkHandler(IHttpContextAccessor httpContextAccessor, ILogger<ApprovedIPNetworkHandler> logger)
     {

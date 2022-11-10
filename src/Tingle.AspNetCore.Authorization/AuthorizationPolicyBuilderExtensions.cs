@@ -66,7 +66,7 @@ public static class AuthorizationPolicyBuilderExtensions
     /// <param name="builder">The instance to add to</param>
     /// <param name="section">
     /// The <see cref="IConfiguration"/> containing the values at the root.
-    /// It must be bindable to an instanc of <c>List&lt;string&gt;</c>
+    /// It must be bindable to an instance of <c>List&lt;string&gt;</c>
     /// </param>
     /// <returns></returns>
     public static AuthorizationPolicyBuilder RequireApprovedNetworks(this AuthorizationPolicyBuilder builder, IConfiguration section)

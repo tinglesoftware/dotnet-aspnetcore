@@ -35,7 +35,7 @@ public class ContinuationTokenResult<T> : OkObjectResult
 
         // we can only set the header if 
         // 1) the provided token instance is not null
-        // 2) the underliying value is not null
+        // 2) the underlying value is not null
         // 3) the protected value is not null or empty
         if (token != default && token.GetValue() != null)
         {

@@ -30,7 +30,7 @@ public static class JsonPatchDocumentExtensions
         if (immutableProperties == null) throw new ArgumentNullException(nameof(immutableProperties));
 
         // if we get here, there are no changes to the immutable properties
-        // we can thus proceed to apply the other peroperties
+        // we can thus proceed to apply the other properties
         patchDoc.ApplyToSafely(objectToApplyTo: objectToApplyTo,
                                modelState: modelState,
                                immutableProperties: immutableProperties,
@@ -97,7 +97,7 @@ public static class JsonPatchDocumentExtensions
         if (modelState == null) throw new ArgumentNullException(nameof(modelState));
 
         // if we get here, there are no changes to the immutable properties
-        // we can thus proceed to apply the other peroperties
+        // we can thus proceed to apply the other properties
         patchDoc.ApplyToSafely(objectToApplyTo: objectToApplyTo, modelState: modelState, prefix: string.Empty);
     }
 
@@ -145,7 +145,7 @@ public static class JsonPatchDocumentExtensions
         }
 
         // if we get here, there are no changes to the immutable properties
-        // we can thus proceed to apply the other peroperties
+        // we can thus proceed to apply the other properties
         patchDoc.ApplyTo(objectToApplyTo: objectToApplyTo, modelState: modelState, prefix: prefix);
     }
 }

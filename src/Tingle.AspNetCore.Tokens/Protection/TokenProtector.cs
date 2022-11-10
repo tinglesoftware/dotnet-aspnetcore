@@ -17,7 +17,7 @@ internal class TokenProtector<T> : ITokenProtector<T>
     private readonly TokenProtectorOptions options;
 
     /// <summary>Initializes a new instance of the <see cref="TokenProtector{T}"/> class.</summary>
-    /// <param name="protectionProvider">The application's provder of instances of <see cref="IDataProtector"/>.</param>
+    /// <param name="protectionProvider">The application's provider of instances of <see cref="IDataProtector"/>.</param>
     /// <param name="optionsAccessor"></param>
     public TokenProtector(IDataProtectionProvider protectionProvider, IOptionsSnapshot<TokenProtectorOptions> optionsAccessor)
     {
@@ -97,7 +97,7 @@ internal class TokenProtector<T> : ITokenProtector<T>
     /// Encrypts a token's value to a string.
     /// </summary>
     /// <param name="value">The value to convert.</param>
-    /// <param name="lifetime">The lifespan of the protecterd payload.</param>
+    /// <param name="lifetime">The lifespan of the protected payload.</param>
     /// <returns>The Base64-encoded encrypted value.</returns>
     public virtual string Protect(T value, TimeSpan lifetime)
     {

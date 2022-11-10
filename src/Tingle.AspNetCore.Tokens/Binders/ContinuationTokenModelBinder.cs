@@ -18,7 +18,7 @@ internal class ContinuationTokenModelBinder<T> : IModelBinder
     /// <summary>Initializes a new instance of the <see cref="ContinuationTokenModelBinder{T}"/> class.</summary>
     /// <param name="protector">
     /// The protector for a token. It converts between <typeparamref name="T"/> and <see cref="string"/>.
-    /// The implementation is incharge of encrypting and decrypting if need be
+    /// The implementation is responsible for encrypting and decrypting where needed.
     /// </param>
     /// <param name="logger">The application's logger, specialized for <see cref="ContinuationTokenModelBinder{T}"/>.</param>
     public ContinuationTokenModelBinder(ITokenProtector<T> protector, ILogger<ContinuationTokenModelBinder<T>> logger)

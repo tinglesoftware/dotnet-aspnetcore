@@ -48,7 +48,7 @@ public interface ITokenProtector<T>
     /// Encrypts a token's value to a string.
     /// </summary>
     /// <param name="value">The value to convert.</param>
-    /// <param name="lifetime">The lifespan of the protecterd payload.</param>
+    /// <param name="lifetime">The lifespan of the protected payload.</param>
     /// <returns>The Base64-encoded encrypted value.</returns>
     string Protect(T value, TimeSpan lifetime);
 }
