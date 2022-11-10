@@ -16,7 +16,7 @@ In appsettings.json...
 
 ```json
 {
-    "WhitelistIPs": [
+    "AllowedNetworks": [
       "::1/128",
       "127.0.0.1/32"
     ]
@@ -36,7 +36,7 @@ public void ConfigureServices(IServiceCollection services)
         {
             policy.AddAuthenticationSchemes("my_auth_scheme")
                     .RequireAuthenticatedUser()
-                    .RequireApprovedNetworks(Configuration.GetSection("WhitelistIPs"));
+                    .RequireApprovedNetworks(Configuration.GetSection("AllowedNetworks"));
         });
     });
 
@@ -49,13 +49,13 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Details of the implementation of `my_auth_scheme` authentication scheme have been omitted here since it is beyod the scope of this discussion. More details on how to handle authentication in ASP.NET Core can be found [here](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/?view=aspnetcore-7.0).
+Details of the implementation of `my_auth_scheme` authentication scheme have been omitted here since it is beyond the scope of this discussion. More details on how to handle authentication in ASP.NET Core can be found [here](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/?view=aspnetcore-7.0).
 
 The above code section defines `my_auth_policy` authorization policy which ensures the user who has been authenticated via the `my_auth_scheme` has access to the resource they're trying to gain access to. Using `RequireApprovedNetworks` extension method on the `AuthorizationPolicyBuilder` we can then add a comma separated list of IP networks that are approved to access the resource from.
 
 We also have added a call to the `services.AddHttpContextAccessor()` extension method in order to allow us to gain access to the `HttpContext` which contains the details of the IP address that the request is originating from.
 
-Finally, we have a call to the `services.AddApprovedNetworksHandler()` which adds an instance of the `ApprovedIPNetworkHandler`. This authorization handler then makes a decision if authorization is allowed by checking if the request ip is among the whitelist provided in the authorization policy.
+Finally, we have a call to the `services.AddApprovedNetworksHandler()` which adds an instance of the `ApprovedIPNetworkHandler`. This authorization handler then makes a decision if authorization is allowed by checking if the request IP is among the networks provided in the authorization policy.
 
 Now, we can use this functionality to authorize access to a controller as shown below:
 
@@ -77,7 +77,7 @@ In appsettings.json...
 
 ```json
 {
-    "WhitelistDomains": ["contoso.com", "northwind.com"]
+    "AllowedDomains": ["contoso.com", "northwind.com"]
 }
 ```
 
@@ -94,7 +94,7 @@ public void ConfigureServices(IServiceCollection services)
         {
             policy.AddAuthenticationSchemes("my_auth_scheme")
                     .RequireAuthenticatedUser()
-                    .RequireNetworkFromDns(Configuration.GetSection("WhitelistDomains"));
+                    .RequireNetworkFromDns(Configuration.GetSection("AllowedDomains"));
         });
     });
 
@@ -105,7 +105,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ### Azure IPs
 
-For developers who are working with Microsoft Azure and they'd wish to whitelist all their ip addresses they can do that easily as demonstrated below:
+For developers who are working with Microsoft Azure and they'd wish to allow all their IP addresses they can do that easily as demonstrated below:
 
 ### Sample Usage Dependency Injection
 
@@ -129,4 +129,4 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-If you however do not wish to whitlist the entire range of Azure IPs, you can provide `serviceId` and `region` parameters to `RequireAzureIPNetworks` to scope the range of IPs based on the Azure service id and/or region.
+If you however do not wish to allow the entire range of Azure IPs, you can provide `serviceId` and `region` parameters to `RequireAzureIPNetworks` to scope the range of IPs based on the Azure service id and/or region.
