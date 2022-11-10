@@ -33,14 +33,14 @@ public class ApprovedIPNetworkHandler : AuthorizationHandler<ApprovedIPNetworkRe
     {
         var httpContext = httpContextAccessor.HttpContext;
         var address = httpContext.Connection.RemoteIpAddress;
-        logger.LogTrace("Checking approval for IP: '{0}'", address);
+        logger.LogTrace("Checking approval for IP: '{IPAddress}'", address);
         if (address != null && requirement.IsApproved(address))
         {
             context.Succeed(requirement);
         }
         else
         {
-            logger.LogWarning("Approval for IP: '{0}' failed", address);
+            logger.LogWarning("Approval for IP: '{IPAddress}' failed", address);
         }
 
         return Task.CompletedTask;
