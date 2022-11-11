@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <Description>Support for storing keys using MongoDB.</Description>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
