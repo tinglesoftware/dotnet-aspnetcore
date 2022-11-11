@@ -62,7 +62,7 @@ public class ContinuationToken<T> : IToken, IEquatable<ContinuationToken<T>>
     public override int GetHashCode() => HashCode.Combine(value, @protected);
 
     /// <inheritdoc/>
-    public override string? ToString() => value.ToString();
+    public override string? ToString() => value?.ToString();
 
     /// <inheritdoc/>
     public bool Equals(ContinuationToken<T>? other)

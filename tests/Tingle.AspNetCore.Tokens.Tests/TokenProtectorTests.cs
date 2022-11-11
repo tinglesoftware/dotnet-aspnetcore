@@ -117,11 +117,11 @@ public class TokenProtectorTests
         var actual = prot.UnProtect(prot.Protect(datum));
         if (unwrapDateTime && typeof(T) == typeof(DateTime))
         {
-            Assert.Equal((DateTime)(object)datum, (DateTime)(object)actual, TimeSpan.FromSeconds(1));
+            Assert.Equal((DateTime)(object)datum!, (DateTime)(object)actual!, TimeSpan.FromSeconds(1));
         }
         else if (unwrapDateTime && typeof(T) == typeof(DateTimeOffset))
         {
-            Assert.Equal(((DateTimeOffset)(object)datum).DateTime, ((DateTimeOffset)(object)actual).DateTime, TimeSpan.FromSeconds(1));
+            Assert.Equal(((DateTimeOffset)(object)datum!).DateTime, ((DateTimeOffset)(object)actual!).DateTime, TimeSpan.FromSeconds(1));
         }
         else Assert.Equal(datum, actual);
     }
@@ -141,7 +141,7 @@ public class TokenProtectorTests
         Assert.Equal(datum, actual);
     }
 
-    private static IOptionsSnapshot<TokenProtectorOptions> CreateOptions(TokenProtectorOptions options = null)
+    private static IOptionsSnapshot<TokenProtectorOptions> CreateOptions(TokenProtectorOptions? options = null)
     {
         var mock = new Mock<IOptionsSnapshot<TokenProtectorOptions>>(MockBehavior.Strict);
         mock.Setup(m => m.Value).Returns(options ?? new TokenProtectorOptions { });

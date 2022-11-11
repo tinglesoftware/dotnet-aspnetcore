@@ -24,7 +24,7 @@ public class ValidationTest
         var modelState = new ModelStateDictionary();
         doc.ApplyToSafely(target, modelState, new List<string> { nameof(TestModel.Id), });
         Assert.False(modelState.IsValid);
-        var error = Assert.Single(Assert.Single(modelState).Value.Errors);
+        var error = Assert.Single(Assert.Single(modelState).Value!.Errors);
         Assert.Equal("The property at path '/Id' is immutable.", error.ErrorMessage);
     }
 
@@ -41,11 +41,11 @@ public class ValidationTest
 
         var doc = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonPatchDocument<TestPatchModel>>(
                         Newtonsoft.Json.JsonConvert.SerializeObject(
-                            new JsonPatchDocument<TestModel>().Replace(x => x.Id, "test2")));
+                            new JsonPatchDocument<TestModel>().Replace(x => x.Id, "test2")))!;
         var modelState = new ModelStateDictionary();
         doc.ApplyToSafely(target, modelState);
         Assert.False(modelState.IsValid);
-        var error = Assert.Single(Assert.Single(modelState).Value.Errors);
+        var error = Assert.Single(Assert.Single(modelState).Value!.Errors);
         Assert.Equal("The property at path '/Id' is immutable or does not exist.", error.ErrorMessage);
     }
 
@@ -63,7 +63,7 @@ public class ValidationTest
         // test with JsonPatchDocument<TestModel>
         var doc = Newtonsoft.Json.JsonConvert.DeserializeObject<JsonPatchDocument<TestPatchModel>>(
                         Newtonsoft.Json.JsonConvert.SerializeObject(
-                            new JsonPatchDocument<TestModel>().Replace(x => x.Name, "Alice")));
+                            new JsonPatchDocument<TestModel>().Replace(x => x.Name, "Alice")))!;
         var modelState = new ModelStateDictionary();
         doc.ApplyToSafely(target, modelState);
         Assert.True(modelState.IsValid);
@@ -121,7 +121,7 @@ public class ValidationTest
         };
 
         // test with inner
-        var doc = new JsonPatchDocument<TestPatchModel>().Replace(x => x.Inner.Batch, "002");
+        var doc = new JsonPatchDocument<TestPatchModel>().Replace(x => x.Inner!.Batch, "002");
         var modelState = new ModelStateDictionary();
         doc.ApplyToSafely(target, modelState);
         Assert.True(modelState.IsValid);
@@ -163,16 +163,16 @@ public class ValidationTest
 
     class TestInnerModel
     {
-        public string Batch { get; set; }
+        public string? Batch { get; set; }
     }
 
     class TestPatchModel
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public string MiddleName { get; set; }
+        public string? MiddleName { get; set; }
 
-        public TestInnerModel Inner { get; set; }
+        public TestInnerModel? Inner { get; set; }
 
         public List<string> Tags { get; set; } = new List<string>();
 
@@ -182,7 +182,7 @@ public class ValidationTest
     class TestModel : TestPatchModel
     {
         [Key]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [Range(18, 65)]
         public int Age { get; set; }

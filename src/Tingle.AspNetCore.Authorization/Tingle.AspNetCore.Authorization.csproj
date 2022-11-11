@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <Description>Convenience authorization functionality</Description>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

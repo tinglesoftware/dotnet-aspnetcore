@@ -39,7 +39,7 @@ public class ContinuationTokenModelBinderTests
         binderProviderContextMock.SetupGet(c => c.Services).Returns(serviceProvider);
 
         // get the binder
-        binder = binderProvider.GetBinder(binderProviderContextMock.Object);
+        binder = binderProvider.GetBinder(binderProviderContextMock.Object)!;
     }
 
     [Fact]
@@ -123,7 +123,7 @@ public class ContinuationTokenModelBinderTests
     public async Task BindModelAsync_Works()
     {
         var original = TestDataClass.CreateRandom();
-        var ctProtector = serviceProvider.GetService<ITokenProtector<TestDataClass>>();
+        var ctProtector = serviceProvider.GetRequiredService<ITokenProtector<TestDataClass>>();
         var token = ctProtector.Protect(original);
 
         // prepare HTTP context
@@ -147,7 +147,7 @@ public class ContinuationTokenModelBinderTests
     public async Task BindModelAsync_Timed_Works()
     {
         var original = TestDataClass.CreateRandom();
-        var ctProtector = serviceProvider.GetService<ITokenProtector<TestDataClass>>();
+        var ctProtector = serviceProvider.GetRequiredService<ITokenProtector<TestDataClass>>();
         var expiration = DateTimeOffset.UtcNow.AddSeconds(1);
         var token = ctProtector.Protect(original, expiration);
 
@@ -172,7 +172,7 @@ public class ContinuationTokenModelBinderTests
     public async Task BindModelAsync_Fails_ExpiredToken()
     {
         var original = TestDataClass.CreateRandom();
-        var ctProtector = serviceProvider.GetService<ITokenProtector<TestDataClass>>();
+        var ctProtector = serviceProvider.GetRequiredService<ITokenProtector<TestDataClass>>();
         var expiration = DateTimeOffset.UtcNow.AddSeconds(1);
         var token = ctProtector.Protect(original, expiration);
 
@@ -199,7 +199,7 @@ public class ContinuationTokenModelBinderTests
     public async Task BindModelAsync_Fails_Timed_Resolved_Without_Time()
     {
         var original = TestDataClass.CreateRandom();
-        var ctProtector = serviceProvider.GetService<ITokenProtector<TestDataClass>>();
+        var ctProtector = serviceProvider.GetRequiredService<ITokenProtector<TestDataClass>>();
         var token = ctProtector.Protect(original);
 
         // delay the usage
@@ -225,7 +225,7 @@ public class ContinuationTokenModelBinderTests
     public async Task BindModelAsync_Fails_UnTimed_Resolved_With_Time()
     {
         var original = TestDataClass.CreateRandom();
-        var ctProtector = serviceProvider.GetService<ITokenProtector<TestDataClass>>();
+        var ctProtector = serviceProvider.GetRequiredService<ITokenProtector<TestDataClass>>();
         var expiration = DateTimeOffset.UtcNow.AddSeconds(1);
         var token = ctProtector.Protect(original, expiration);
 

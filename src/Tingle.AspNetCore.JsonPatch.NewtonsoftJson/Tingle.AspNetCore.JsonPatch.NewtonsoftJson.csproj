@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <Description>Extensions to ensure immutable types aren't modified or removed during JSON PATCH operations</Description>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
