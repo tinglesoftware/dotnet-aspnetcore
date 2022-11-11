@@ -108,7 +108,7 @@ public static class JsonPatchDocumentDictionaryExtensions
 
     private static string GetPath<TModel, TProp>(IContractResolver contractResolver,
                                                  Expression<Func<TModel, TProp>> expr,
-                                                 string position)
+                                                 string? position)
     {
         var segments = GetPathSegments(contractResolver, expr.Body);
         var path = string.Join("/", segments);
@@ -124,9 +124,9 @@ public static class JsonPatchDocumentDictionaryExtensions
         return "/" + path;
     }
 
-    private static List<string> GetPathSegments(IContractResolver contractResolver, Expression expr)
+    private static List<string?> GetPathSegments(IContractResolver contractResolver, Expression expr)
     {
-        var listOfSegments = new List<string>();
+        var listOfSegments = new List<string?>();
         switch (expr.NodeType)
         {
             case ExpressionType.ArrayIndex:
@@ -137,7 +137,7 @@ public static class JsonPatchDocumentDictionaryExtensions
 
             case ExpressionType.Call:
                 var methodCallExpression = (MethodCallExpression)expr;
-                listOfSegments.AddRange(GetPathSegments(contractResolver, methodCallExpression.Object));
+                listOfSegments.AddRange(GetPathSegments(contractResolver, methodCallExpression.Object!));
                 listOfSegments.Add(EvaluateExpression(methodCallExpression.Arguments[0]));
                 return listOfSegments;
 
@@ -146,8 +146,8 @@ public static class JsonPatchDocumentDictionaryExtensions
                 return listOfSegments;
 
             case ExpressionType.MemberAccess:
-                var memberExpression = expr as MemberExpression;
-                listOfSegments.AddRange(GetPathSegments(contractResolver, memberExpression.Expression));
+                var memberExpression = (MemberExpression)expr;
+                listOfSegments.AddRange(GetPathSegments(contractResolver, memberExpression.Expression!));
                 // Get property name, respecting JsonProperty attribute
                 listOfSegments.Add(GetPropertyNameFromMemberExpression(contractResolver, memberExpression));
                 return listOfSegments;
@@ -161,11 +161,11 @@ public static class JsonPatchDocumentDictionaryExtensions
         }
     }
 
-    private static string GetPropertyNameFromMemberExpression(IContractResolver contractResolver, MemberExpression memberExpression)
+    private static string? GetPropertyNameFromMemberExpression(IContractResolver contractResolver, MemberExpression memberExpression)
     {
-        if (contractResolver.ResolveContract(memberExpression.Expression.Type) is JsonObjectContract contract)
+        if (contractResolver.ResolveContract(memberExpression.Expression!.Type) is JsonObjectContract contract)
         {
-            return contract.Properties.First(jp => jp.UnderlyingName == memberExpression.Member.Name).PropertyName;
+            return contract.Properties.First(jp => jp.UnderlyingName == memberExpression.Member.Name).PropertyName!;
         }
 
         return null;
@@ -174,11 +174,11 @@ public static class JsonPatchDocumentDictionaryExtensions
     // Evaluates the value of the key or index which may be an int or a string,
     // or some other expression type.
     // The expression is converted to a delegate and the result of executing the delegate is returned as a string.
-    private static string EvaluateExpression(Expression expression)
+    private static string? EvaluateExpression(Expression expression)
     {
         var converted = Expression.Convert(expression, typeof(object));
         var fakeParameter = Expression.Parameter(typeof(object), null);
-        var lambda = Expression.Lambda<Func<object, object>>(converted, fakeParameter);
+        var lambda = Expression.Lambda<Func<object?, object?>>(converted, fakeParameter);
         var func = lambda.Compile();
 
         return Convert.ToString(func(null), CultureInfo.InvariantCulture);
