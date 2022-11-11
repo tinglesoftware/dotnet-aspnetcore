@@ -28,7 +28,7 @@ public static class IMvcBuilderExtensions
     /// An <see cref="Action{T}"/> to further configure instances of <see cref="TokenProtectorOptions"/>.
     /// </param>
     /// <returns>The modified builder.</returns>
-    public static IMvcBuilder AddTokens(this IMvcBuilder builder, Action<TokenProtectorOptions> configure = null)
+    public static IMvcBuilder AddTokens(this IMvcBuilder builder, Action<TokenProtectorOptions>? configure = null)
     {
         // Register the protector services
         var services = builder.Services;

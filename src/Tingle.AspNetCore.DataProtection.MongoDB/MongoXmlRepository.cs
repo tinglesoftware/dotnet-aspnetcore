@@ -17,7 +17,7 @@ public class MongoXmlRepository : IXmlRepository
     /// <param name="databaseFactory">The delegate used to create <see cref="IMongoCollection{TDocument}"/> instances.</param>
     public MongoXmlRepository(Func<IMongoCollection<DataProtectionKey>> databaseFactory)
     {
-        _collectionFactory = databaseFactory;
+        _collectionFactory = databaseFactory ?? throw new ArgumentNullException(nameof(databaseFactory));
     }
 
     /// <inheritdoc />
@@ -26,7 +26,7 @@ public class MongoXmlRepository : IXmlRepository
         var collection = _collectionFactory();
         return collection.Find(Builders<DataProtectionKey>.Filter.Empty)
                          .ToList()
-                         .Select(key => XElement.Parse(key.Xml))
+                         .Select(key => XElement.Parse(key.Xml ?? throw new InvalidOperationException($"XML data is missing for {key.Id}")))
                          .ToList()
                          .AsReadOnly();
     }

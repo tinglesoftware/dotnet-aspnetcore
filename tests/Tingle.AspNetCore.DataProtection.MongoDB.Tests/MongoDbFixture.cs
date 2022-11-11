@@ -1,32 +1,33 @@
 ﻿using MongoDB.Driver;
-using System.Text.RegularExpressions;
 
 namespace Tingle.AspNetCore.DataProtection.MongoDB.Tests;
 
 public sealed class MongoDbFixture : IDisposable
 {
+    private readonly string dbName;
+    private readonly IMongoClient client;
+
     public MongoDbFixture()
     {
-        var dbName = Regex.Replace(Guid.NewGuid().ToString(), "[^a-zA-Z0-9]", "");
+        dbName = Guid.NewGuid().ToString();
         var mub = new MongoUrlBuilder()
         {
             Server = MongoServerAddress.Parse("localhost:27017"),
             DatabaseName = dbName
         };
         ConnectionString = mub.ToString();
-        Client = new MongoClient(ConnectionString);
-        Database = Client.GetDatabase(dbName);
+        client = new MongoClient(ConnectionString);
     }
 
     public string ConnectionString { get; private set; }
 
-    public IMongoClient Client { get; private set; }
+    public IMongoClient Client => client;
 
-    public IMongoDatabase Database { get; private set; }
+    public IMongoDatabase Database => client.GetDatabase(dbName);
 
-    public string DatabaseName => Database?.DatabaseNamespace.DatabaseName;
+    public IMongoCollection<T> GetCollection<T>(string? name = null) => Database.GetCollection<T>(name ?? typeof(T).Name);
 
-    public IMongoCollection<T> GetCollection<T>(string name = null) => Database.GetCollection<T>(name ?? typeof(T).Name);
+    public string DatabaseName => dbName;
 
     #region IDisposable Support
     private bool disposed = false; // To detect redundant calls
@@ -37,12 +38,8 @@ public sealed class MongoDbFixture : IDisposable
         {
             if (disposing)
             {
-                Client.DropDatabase(Database.DatabaseNamespace.DatabaseName);
+                client.DropDatabase(dbName);
             }
-
-            Client = null;
-            Database = null;
-            ConnectionString = null;
 
             disposed = true;
         }

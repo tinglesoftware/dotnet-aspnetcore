@@ -41,7 +41,7 @@ public static class AuthorizationPolicyBuilderExtensions
     public static AuthorizationPolicyBuilder RequireApprovedNetworks(this AuthorizationPolicyBuilder builder,
                                                                      params string[] networks)
     {
-        var parsed = networks?.Select(a => IPNetwork.Parse(a)).ToList();
+        var parsed = networks.Select(a => IPNetwork.Parse(a)).ToList();
         return builder.RequireApprovedNetworks(parsed);
     }
 
@@ -92,20 +92,23 @@ public static class AuthorizationPolicyBuilderExtensions
     /// When not provided(null), IPs from all regions are added.
     /// </param>
     public static AuthorizationPolicyBuilder RequireAzureIPNetworks(this AuthorizationPolicyBuilder builder,
-                                                                    string serviceId = null,
-                                                                    string region = null)
+                                                                    string? serviceId = null,
+                                                                    string? region = null)
     {
         var ranges = AzureIPNetworks.AzureIPsHelper.GetAzureCloudIpsAsync().GetAwaiter().GetResult();
+        // TODO: remove this suppression when no longer needed
+#pragma warning disable CS8604 // Possible null reference argument.
         var tags = ranges.Values.AsEnumerable();
+#pragma warning restore CS8604 // Possible null reference argument.
 
         // if the service identifier is provided, only retain networks for that service
         if (serviceId != null) tags = tags.Where(t => t.Id == serviceId);
 
         // if the region is provided, only retain networks for that region
-        if (region != null) tags = tags.Where(t => t.Properties.Region == region);
+        if (region != null) tags = tags.Where(t => t.Properties?.Region == region);
 
         // get the networks
-        var networks = tags.SelectMany(t => t.Properties?.AddressPrefixes)
+        var networks = tags.SelectMany(t => t.Properties?.AddressPrefixes ?? Array.Empty<string>())
                            .Select(r => IPNetwork.Parse(r))
                            .ToArray();
 

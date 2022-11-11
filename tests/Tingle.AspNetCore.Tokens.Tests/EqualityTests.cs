@@ -32,12 +32,12 @@ public class EqualityTests
         Assert.False(ct12 == ct22);
 
         // try with fixed ones
-        ContinuationToken<TestDataClass> ct31 = default;
-        ContinuationToken<TestDataClass> ct32 = null;
-        Assert.True(ct11 != null);
-        Assert.True(ct21 != default);
-        Assert.True(ct31 == null);
-        Assert.True(ct32 == default);
+        ContinuationToken<TestDataClass>? ct31 = default;
+        ContinuationToken<TestDataClass>? ct32 = null;
+        Assert.NotNull(ct11);
+        Assert.NotEqual(default, ct21);
+        Assert.Null(ct31);
+        Assert.Equal(default, ct32);
     }
 
     [Fact]
@@ -70,11 +70,11 @@ public class EqualityTests
         Assert.False(tmspt12 == tmspt22);
 
         // try with fixed ones
-        TimedContinuationToken<TestDataClass> tmspt31 = default;
-        TimedContinuationToken<TestDataClass> tmspt32 = null;
-        Assert.True(tmspt11 != null);
-        Assert.True(tmspt21 != default);
-        Assert.True(tmspt31 == null);
-        Assert.True(tmspt32 == default);
+        TimedContinuationToken<TestDataClass>? tmspt31 = default;
+        TimedContinuationToken<TestDataClass>? tmspt32 = null;
+        Assert.NotNull(tmspt11);
+        Assert.NotEqual(default, tmspt21);
+        Assert.Null(tmspt31);
+        Assert.Equal(default, tmspt32);
     }
 }

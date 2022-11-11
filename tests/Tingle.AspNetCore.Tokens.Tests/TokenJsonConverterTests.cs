@@ -41,7 +41,7 @@ public class TokenJsonConverterTests
 
     class TestModel
     {
-        public ContinuationToken<TestDataClass> Token1 { get; set; }
-        public TimedContinuationToken<TestDataClass> Token2 { get; set; }
+        public ContinuationToken<TestDataClass>? Token1 { get; set; }
+        public TimedContinuationToken<TestDataClass>? Token2 { get; set; }
     }
 }

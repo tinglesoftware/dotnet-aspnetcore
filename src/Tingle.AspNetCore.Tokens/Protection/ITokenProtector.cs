@@ -15,7 +15,7 @@ public interface ITokenProtector<T>
     /// <returns>The decrypted value.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="encrypted"/> is <see langword="null"/>.</exception>
     /// <exception cref="CryptographicException">The decryption operation has failed.</exception>
-    T UnProtect(string encrypted);
+    T? UnProtect(string encrypted);
 
     /// <summary>
     /// Decrypts a string to a token's value.
@@ -27,7 +27,7 @@ public interface ITokenProtector<T>
     /// <returns>The decrypted value.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="encrypted"/> is <see langword="null"/>.</exception>
     /// <exception cref="CryptographicException">The decryption operation has failed.</exception>
-    T UnProtect(string encrypted, out DateTimeOffset expiration);
+    T? UnProtect(string encrypted, out DateTimeOffset expiration);
 
     /// <summary>
     /// Encrypts a token's value to a string.

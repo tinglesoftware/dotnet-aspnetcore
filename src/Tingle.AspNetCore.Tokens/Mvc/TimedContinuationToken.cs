@@ -54,15 +54,15 @@ public class TimedContinuationToken<T> : ContinuationToken<T>, IEquatable<TimedC
     public static bool operator !=(TimedContinuationToken<T> left, TimedContinuationToken<T> right) => !(left == right);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => Equals(obj as TimedContinuationToken<T>);
+    public override bool Equals(object? obj) => Equals(obj as TimedContinuationToken<T>);
 
     /// <inheritdoc/>
     public override int GetHashCode() => HashCode.Combine(base.GetHashCode(), expiration);
 
     /// <inheritdoc/>
-    public bool Equals(TimedContinuationToken<T> other)
+    public bool Equals(TimedContinuationToken<T>? other)
     {
-        return other != null
+        return other is not null
             && base.Equals(other)
             && expiration.Equals(other.expiration);
     }
