@@ -53,20 +53,33 @@ internal class ContinuationTokenModelBinder<T> : IModelBinder
         // at this point, we have a valid string that we can decrypt
         try
         {
-            ContinuationToken<T> token = default;
+            ContinuationToken<T>? token = default;
             if (bindingContext.ModelType == typeof(TimedContinuationToken<T>))
             {
                 var decrypted = protector.UnProtect(encrypted, out DateTimeOffset expiration);
-                token = new TimedContinuationToken<T>(decrypted, encrypted, expiration);
+                if (decrypted is not null)
+                {
+                    token = new TimedContinuationToken<T>(decrypted, encrypted, expiration);
+                }
             }
             else
             {
                 var decrypted = protector.UnProtect(encrypted);
-                token = new ContinuationToken<T>(decrypted, encrypted);
+                if (decrypted is not null)
+                {
+                    token = new ContinuationToken<T>(decrypted, encrypted);
+                }
             }
 
-            bindingContext.Result = ModelBindingResult.Success(token);
-
+            if (token is not null)
+            {
+                bindingContext.Result = ModelBindingResult.Success(token);
+            }
+            else
+            {
+                logger.LogWarning("Token deserialization failed!");
+                bindingContext.ModelState.TryAddModelError(name, "The token is invalid or expired.");
+            }
         }
         catch (CryptographicException ce)
         {

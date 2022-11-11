@@ -40,7 +40,7 @@ internal class TokenProtector<T> : ITokenProtector<T>
     /// <returns>The decrypted value.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="encrypted"/> is <see langword="null"/>.</exception>
     /// <exception cref="CryptographicException">The decryption operation has failed.</exception>
-    public virtual T UnProtect(string encrypted)
+    public virtual T? UnProtect(string encrypted)
     {
         if (encrypted == null) throw new ArgumentNullException(nameof(encrypted));
 
@@ -58,7 +58,7 @@ internal class TokenProtector<T> : ITokenProtector<T>
     /// <returns>The decrypted value.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="encrypted"/> is <see langword="null"/>.</exception>
     /// <exception cref="CryptographicException">The decryption operation has failed.</exception>
-    public virtual T UnProtect(string encrypted, out DateTimeOffset expiration)
+    public virtual T? UnProtect(string encrypted, out DateTimeOffset expiration)
     {
         if (encrypted == null) throw new ArgumentNullException(nameof(encrypted));
 
@@ -107,17 +107,17 @@ internal class TokenProtector<T> : ITokenProtector<T>
         return timeLimitedProtector.Protect(raw, lifetime);
     }
 
-    protected virtual T Deserialize(string plaintext)
+    protected virtual T? Deserialize(string plaintext)
     {
         return options.UseConversionInsteadOfJson
-            ? (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(plaintext)
+            ? (T?)TypeDescriptor.GetConverter(typeof(T)).ConvertFromInvariantString(plaintext)
             : System.Text.Json.JsonSerializer.Deserialize<T>(plaintext);
     }
 
     protected virtual string Serialize(T value)
     {
         return options.UseConversionInsteadOfJson
-            ? Convert.ToString(value)
+            ? Convert.ToString(value)!
             : System.Text.Json.JsonSerializer.Serialize(value);
     }
 }

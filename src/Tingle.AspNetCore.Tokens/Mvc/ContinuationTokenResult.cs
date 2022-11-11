@@ -37,7 +37,7 @@ public class ContinuationTokenResult<T> : OkObjectResult
         // 1) the provided token instance is not null
         // 2) the underlying value is not null
         // 3) the protected value is not null or empty
-        if (token != default && token.GetValue() != null)
+        if (token is not null && token.GetValue() != null)
         {
             // get an instance of the protector
             var protector = context.HttpContext.RequestServices.GetRequiredService<ITokenProtector<T>>();

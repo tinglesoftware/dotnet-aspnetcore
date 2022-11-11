@@ -15,7 +15,7 @@ namespace Tingle.AspNetCore.Tokens.Binders;
 internal class ContinuationTokenModelBinderProvider : IModelBinderProvider
 {
     /// <inheritdoc/>
-    public IModelBinder GetBinder(ModelBinderProviderContext context)
+    public IModelBinder? GetBinder(ModelBinderProviderContext context)
     {
         if (context == null) throw new ArgumentNullException(nameof(context));
 
@@ -27,7 +27,7 @@ internal class ContinuationTokenModelBinderProvider : IModelBinderProvider
             var genericTypeDefinition = modelType.GetGenericTypeDefinition();
 
             // try make a type for the model binder
-            Type modelBinderType = null;
+            Type? modelBinderType = null;
 
             // ensure the generic type matches what we expect
             var underlyingType = modelType.GenericTypeArguments.FirstOrDefault();

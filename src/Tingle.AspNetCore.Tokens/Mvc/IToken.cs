@@ -9,5 +9,5 @@ public interface IToken
     /// Gets the original value.
     /// This is also the encrypted version of the raw value.
     /// </summary>
-    public string GetProtected();
+    public string? GetProtected();
 }

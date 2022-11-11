@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <Description>Convenience for producing and consuming continuation tokens in AspNetCore</Description>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

@@ -11,7 +11,7 @@ namespace Microsoft.AspNetCore.Mvc;
 public class ContinuationToken<T> : IToken, IEquatable<ContinuationToken<T>>
 {
     private readonly T value;
-    private readonly string @protected;
+    private readonly string? @protected;
 
     /// <summary>Initializes a new instance of <see cref="ContinuationToken{T}"/>.</summary>
     /// <param name="value">The value.</param>
@@ -34,7 +34,7 @@ public class ContinuationToken<T> : IToken, IEquatable<ContinuationToken<T>>
     public T GetValue() => value;
 
     /// <inheritdoc/>
-    public string GetProtected() => @protected;
+    public string? GetProtected() => @protected;
 
     /// <summary>
     /// Compares two instances of the <see cref="ContinuationToken{T}"/> for equality.
@@ -56,18 +56,18 @@ public class ContinuationToken<T> : IToken, IEquatable<ContinuationToken<T>>
     public static bool operator !=(in ContinuationToken<T> left, in ContinuationToken<T> right) => !(left == right);
 
     /// <inheritdoc/>
-    public override bool Equals(object obj) => Equals(obj as ContinuationToken<T>);
+    public override bool Equals(object? obj) => Equals(obj as ContinuationToken<T>);
 
     /// <inheritdoc/>
     public override int GetHashCode() => HashCode.Combine(value, @protected);
 
     /// <inheritdoc/>
-    public override string ToString() => value.ToString();
+    public override string? ToString() => value.ToString();
 
     /// <inheritdoc/>
-    public bool Equals(ContinuationToken<T> other)
+    public bool Equals(ContinuationToken<T>? other)
     {
-        return other != null
+        return other is not null
             && EqualityComparer<T>.Default.Equals(value, other.value)
             && @protected == other.@protected;
     }
