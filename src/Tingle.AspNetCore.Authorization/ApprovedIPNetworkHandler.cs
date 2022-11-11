@@ -32,7 +32,7 @@ public class ApprovedIPNetworkHandler : AuthorizationHandler<ApprovedIPNetworkRe
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ApprovedIPNetworkRequirement requirement)
     {
         var httpContext = httpContextAccessor.HttpContext;
-        var address = httpContext.Connection.RemoteIpAddress;
+        var address = httpContext?.Connection.RemoteIpAddress;
         logger.LogTrace("Checking approval for IP: '{IPAddress}'", address);
         if (address != null && requirement.IsApproved(address))
         {
