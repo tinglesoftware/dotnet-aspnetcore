@@ -1,4 +1,6 @@
-# ASP.NET Core convenience functionality
+# Moved to [tinglesoftware/dotnet-extensions](https://github.com/tinglesoftware/dotnet-extensions)
+
+## ASP.NET Core convenience functionality
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/tinglesoftware/dotnet-aspnetcore/Build%20and%20Publish?style=flat-square)
 
